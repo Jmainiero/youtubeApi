@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+#mp-container {
+  margin: 3em;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-rows: repeat(8, 5vw); */
+  grid-gap: 10px;
+}
+
+.grid-item {
+  border: 1px solid black;
+  overflow: hidden;
+  border-radius: 20%;
+}
+
+.grid-item img {
+  width: 100%;
+  /* height: 100%; */
+  object-fit: cover;
+  border: 1px solid black;
+}
+
+.grid-p-item {
+  padding: 1em;
+  text-align: center;
+}
