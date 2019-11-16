@@ -14,40 +14,42 @@ $client->setAccessType('offline');
 $service = new Google_Service_YouTube($client);
 
 
-// Define service object for making API requests.
-$service = new Google_Service_YouTube($client);
-
+//Initial API call
 $queryParams = [
-    'chart' => 'mostPopular',
-    'regionCode' => 'US'
+  'chart' => 'mostPopular',
+  'regionCode' => 'US'
 ];
 
-if($pageToken != null){
-  print_r($queryParams);
-  $queryParams['pageToken'] = $pageToken;
-}
-
 $response = $service->videos->listVideos('player,snippet', $queryParams);
-
 $pageToken = $response['nextPageToken'];
-$rData = array();
 
-foreach($response['items'] as $videos){
-  $tmpArray = array();
-  // array_push($rData, $videos['player']['embedHtml']);
-  array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle']);
-  array_push($rData, $tmpArray);
+$print = array();
+$rData = array();
+do{
+  $queryParams = [
+    'chart' => 'mostPopular',
+    'regionCode' => 'US',
+    'pageToken' => $pageToken
+  ];
+  $response = $service->videos->listVideos('player,snippet', $queryParams);
+  $pageToken = $response['nextPageToken'];
+
+
+
+  foreach($response['items'] as $videos){
+    $tmpArray = array();
+    // array_push($rData, $videos['player']['embedHtml']);
+    array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle']);
+    array_push($rData, $tmpArray);
+  }
+
+  
+} while (!is_null($pageToken));
+
+  echo json_encode($rData);
 }
-array_push($rData, array("pageToken"=>$pageToken));
-echo json_encode($rData);
-}
+
 
 if($_POST['values'] === 'mostPopular'){
-  if(!empty($_POST['pageToken'])){
-    echo $_POST['pageToken'];
-    mostPopular($_POST['pageToken']);
-  } else {
     mostPopular();
-  }
 }
-

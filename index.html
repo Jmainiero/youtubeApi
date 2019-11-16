@@ -30,12 +30,7 @@
                 success: function (response) {
                     console.log(response);
                     response.forEach(function (el) {
-                        if (el['pageToken']) {
-                            // console.log("This has a page token of " + el['pageToken']);
-                            callPages();
-                        } else {
-                            draw(el);
-                        }
+                        draw(el);
                     });
                 }
             });
