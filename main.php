@@ -14,7 +14,6 @@ $client->setAccessType('offline');
 $service = new Google_Service_YouTube($client);
 
 
-//Initial API call
 $queryParams = [
   'chart' => 'mostPopular',
   'regionCode' => 'US'
@@ -23,7 +22,6 @@ $queryParams = [
 $response = $service->videos->listVideos('player,snippet', $queryParams);
 $pageToken = $response['nextPageToken'];
 
-$print = array();
 $rData = array();
 do{
   $queryParams = [
