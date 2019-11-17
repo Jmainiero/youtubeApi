@@ -37,7 +37,7 @@ do{
   foreach($response['items'] as $videos){
     $tmpArray = array();
     // array_push($rData, $videos['player']['embedHtml']);
-    array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle']);
+    array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle'],$videos['player']['embedHtml']);
     array_push($rData, $tmpArray);
   }
 
