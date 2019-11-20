@@ -49,7 +49,7 @@ do{
 
 
 function searchYT(){
-  $client = new Google_Client();
+$client = new Google_Client();
 $client->setApplicationName('devJM');
 $client->setScopes(['https://www.googleapis.com/auth/youtube.readonly']);
 $client->setAuthConfig('client_secret.json');
@@ -63,7 +63,14 @@ $queryParams = [
 ];
 
 $response = $service->search->listSearch('snippet', $queryParams);
-print_r($response);
+
+$rData = array();
+foreach($response['items'] as $videos){
+  $tmpArray = array();
+  array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle'],$videos['player']['embedHtml']);
+  array_push($rData, $tmpArray);
+}
+echo json_encode($rData);
 
 }
 
