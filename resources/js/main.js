@@ -14,16 +14,16 @@ const draw = el => {
   document.getElementById("mp-container").innerHTML += item;
 };
 
-const interval = setInterval(function() {
+const interval = setInterval(function () {
   const vtn = document.querySelectorAll(".grid-item");
   if (vtn.length > 0) {
     clearInterval(interval);
   }
-  vtn.forEach(function(el) {
-    el.addEventListener("click", function(event) {
+  vtn.forEach(function (el) {
+    el.addEventListener("click", function (event) {
       console.log(this.getAttribute("data-video"));
-      document.getElementById("video-container").style.height = "100vh";
-      document.getElementById("video-container").style.width = "100vw";
+      document.getElementById("video-container").style.height = "45em";
+      document.getElementById("video-container").style.width = "100%";
       document.getElementById(
         "video-container"
       ).innerHTML = `<iframe width="480" height="270" src="//www.youtube.com/embed/${this.getAttribute(
@@ -31,12 +31,11 @@ const interval = setInterval(function() {
       )}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     });
   });
-  $(".grid-item").click(function(e) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#video-container").offset().top
+  $(".grid-item").click(function (e) {
+    $("html, body").animate({
+        scrollTop: $("body").offset().top
       },
       1000
     );
   });
-}, 3000);
+}, 1500);

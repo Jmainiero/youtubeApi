@@ -48,6 +48,29 @@ do{
 }
 
 
+function searchYT(){
+  $client = new Google_Client();
+$client->setApplicationName('devJM');
+$client->setScopes(['https://www.googleapis.com/auth/youtube.readonly']);
+$client->setAuthConfig('client_secret.json');
+$client->setAccessType('offline');
+$service = new Google_Service_YouTube($client);
+
+
+$queryParams = [
+  'maxResults' => 25,
+  'q' => 'League of legends'
+];
+
+$response = $service->search->listSearch('snippet', $queryParams);
+print_r($response);
+
+}
+
+
+
 if($_POST['values'] === 'mostPopular'){
     mostPopular();
+} else if($_POST['values'] === 'searchYT'){
+  searchYT();
 }
