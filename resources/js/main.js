@@ -1,4 +1,4 @@
-const draw = el => {
+const drawMp = el => {
   videoId = el[1].split("/")[4];
 
   item = `<div class = "grid-item" data-video = "${videoId}">`;
@@ -13,6 +13,28 @@ const draw = el => {
   item += "</div>";
   document.getElementById("mp-container").innerHTML += item;
 };
+
+const drawSQ = el => {
+  videoId = el[1].split("/")[4];
+
+  item = `<div class = "sub-grid-item" data-video = "${videoId}">`;
+  // item += '<p>' + el[1] + '</p>';
+  item += '<div class = "sub-img"><img src="' + el[1] + '"</img></div>';
+  item += '<div class = "sub-item-title">';
+  item += "<p>" + el[0] + "</p>";
+  item += "</div>";
+  item += '<div class = "sub-item-channel">';
+  item += "<p>" + el[2] + "</p>";
+  item += "</div>";
+  item += '<div class = "sub-item-desc">';
+  item += "<p>" + el[4] + "</p>";
+  item += "</div>";
+  item += "</div>";
+  document.getElementById("mp-container").style.width = "862px";
+  document.getElementById("mp-container").innerHTML += item;
+
+}
+
 
 const interval = setInterval(function () {
   const vtn = document.querySelectorAll(".grid-item");

@@ -67,7 +67,7 @@ $response = $service->search->listSearch('snippet', $queryParams);
 $rData = array();
 foreach($response['items'] as $videos){
   $tmpArray = array();
-  array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle'],$videos['player']['embedHtml']);
+  array_push($tmpArray, $videos['snippet']['title'], $videos['snippet']['thumbnails']['high']['url'], $videos['snippet']['channelTitle'],$videos['player']['embedHtml'], $videos['snippet']['description']);
   array_push($rData, $tmpArray);
 }
 echo json_encode($rData);
