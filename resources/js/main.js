@@ -30,19 +30,24 @@ const drawSQ = el => {
   item += "<p>" + el[4] + "</p>";
   item += "</div>";
   item += "</div>";
+  document.getElementById("mp-container").style.gridTemplateColumns =
+    "repeat(1,1fr)";
   document.getElementById("mp-container").style.width = "862px";
   document.getElementById("mp-container").innerHTML += item;
+};
 
-}
+const interval = setInterval(function() {
+  if (document.querySelectorAll(".grid-item").length > 0) {
+    const vtn = document.querySelectorAll(".grid-item");
+  } else {
+    vtn = document.querySelectorAll(".sub-grid-item");
+  }
 
-
-const interval = setInterval(function () {
-  const vtn = document.querySelectorAll(".grid-item");
   if (vtn.length > 0) {
     clearInterval(interval);
   }
-  vtn.forEach(function (el) {
-    el.addEventListener("click", function (event) {
+  vtn.forEach(function(el) {
+    el.addEventListener("click", function(event) {
       console.log(this.getAttribute("data-video"));
       document.getElementById("video-container").style.height = "45em";
       document.getElementById("video-container").style.width = "100%";
@@ -53,8 +58,9 @@ const interval = setInterval(function () {
       )}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     });
   });
-  $(".grid-item").click(function (e) {
-    $("html, body").animate({
+  $(vtn).click(function(e) {
+    $("html, body").animate(
+      {
         scrollTop: $("body").offset().top
       },
       1000
