@@ -22,25 +22,43 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="resources/js/main.js"></script>
+
     <script>
-        $(window).on("load", function (e) {
+        $(window).on("load", function () {
+            render(data = {
+                values: "mostPopular"
+            });
+        });
+        const btn = document.querySelector('#header-search input[name="search"]');
+        console.log(btn);
+        $(btn).on("keypress", function (e) {
+            if (e.which == 13) {
+                render(data = {
+                    values: "searchYT",
+                    btnVal: btn.value
+                })
+            }
+
+        });
+
+        function render(data) {
             $.ajax({
                 type: 'POST',
                 url: 'main.php',
                 dataType: "json",
-                data: {
-                    values: "searchYT"
-                    // values: "mostPopular"
-                },
+                data: data,
                 success: function (response) {
-                    console.log(response);
+                    document.getElementById("mp-container").innerHTML = "";
                     response.forEach(function (el) {
-                        // drawMp(el);
-                        drawSQ(el);
+                        if (data.values === 'mostPopular') {
+                            drawMp(el);
+                        } else {
+                            drawSQ(el);
+                        }
                     });
                 }
             });
-        });
+        }
     </script>
 </body>
 

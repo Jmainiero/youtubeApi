@@ -2,7 +2,6 @@ const drawMp = el => {
   videoId = el[1].split("/")[4];
 
   item = `<div class = "grid-item" data-video = "${videoId}">`;
-  // item += '<p>' + el[1] + '</p>';
   item += '<img src="' + el[1] + '"</img>';
   item += '<div class = "grid-p-item videoTitle">';
   item += "<p>" + el[0] + "</p>";
@@ -11,6 +10,7 @@ const drawMp = el => {
   item += "<p>" + el[2] + "</p>";
   item += "</div>";
   item += "</div>";
+  document.getElementById("mp-container").style.margin = "3em";
   document.getElementById("mp-container").innerHTML += item;
 };
 
@@ -18,7 +18,6 @@ const drawSQ = el => {
   videoId = el[1].split("/")[4];
 
   item = `<div class = "sub-grid-item" data-video = "${videoId}">`;
-  // item += '<p>' + el[1] + '</p>';
   item += '<div class = "sub-img"><img src="' + el[1] + '"</img></div>';
   item += '<div class = "sub-item-title">';
   item += "<p>" + el[0] + "</p>";
@@ -38,7 +37,7 @@ const drawSQ = el => {
 
 const interval = setInterval(function() {
   if (document.querySelectorAll(".grid-item").length > 0) {
-    const vtn = document.querySelectorAll(".grid-item");
+    vtn = document.querySelectorAll(".grid-item");
   } else {
     vtn = document.querySelectorAll(".sub-grid-item");
   }

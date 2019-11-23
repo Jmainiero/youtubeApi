@@ -48,7 +48,7 @@ do{
 }
 
 
-function searchYT(){
+function searchYT($btnVal){
 $client = new Google_Client();
 $client->setApplicationName('devJM');
 $client->setScopes(['https://www.googleapis.com/auth/youtube.readonly']);
@@ -59,7 +59,7 @@ $service = new Google_Service_YouTube($client);
 
 $queryParams = [
   'maxResults' => 25,
-  'q' => 'League of legends'
+  'q' => $btnVal
 ];
 
 $response = $service->search->listSearch('snippet', $queryParams);
@@ -79,5 +79,5 @@ echo json_encode($rData);
 if($_POST['values'] === 'mostPopular'){
     mostPopular();
 } else if($_POST['values'] === 'searchYT'){
-  searchYT();
+  searchYT($_POST['btnVal']);
 }
