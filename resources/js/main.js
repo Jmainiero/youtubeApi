@@ -31,6 +31,7 @@ const drawSQ = el => {
   item += "</div>";
   document.getElementById("mp-container").style.gridTemplateColumns =
     "repeat(1,1fr)";
+  document.getElementById("mp-container").style.margin = "0 auto";
   document.getElementById("mp-container").style.width = "862px";
   document.getElementById("mp-container").innerHTML += item;
 };
