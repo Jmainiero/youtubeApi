@@ -1,0 +1,24 @@
+{
+  "name": "youtubeapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "node-sass": "^4.14.1",
+    "nodesass": "^0.0.2-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jmainiero/youtubeApi.git"
+  },
+  "author": "John Mainiero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jmainiero/youtubeApi/issues"
+  },
+  "homepage": "https://github.com/Jmainiero/youtubeApi#readme"
+}

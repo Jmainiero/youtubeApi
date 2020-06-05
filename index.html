@@ -6,61 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/styles.css">
-    <title>John Mainiero | Youtube Api </title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Youtube by John Mainiero&copy; </title>
 </head>
 
 <body>
-
-    <div id="header-search">
-        <input type="text" name="search" placeholder="Search..">
-    </div>
-    <div id="video-container"></div>
-    <div id="mp-container" class="grid-container">
-
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="resources/js/main.js"></script>
-
+    <!-- <main>
+        <div class="primary-container">
+            <div class="row">
+                <div class="col-1-of-4">
+                    Row 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Row 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Row 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Row 1 of 4
+                </div>
+            </div>
+        </div>
+        <div class="row u-margin-top-lg">
+            <div class="col-1-of-4">
+                Row 1 of 4
+            </div>
+            <div class="col-1-of-4">
+                Row 1 of 4
+            </div>
+            <div class="col-1-of-4">
+                Row 1 of 4
+            </div>
+            <div class="col-1-of-4">
+                Row 1 of 4
+            </div>
+        </div>
+        </div>
+    </main> -->
+    <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        $(window).on("load", function () {
-            render(data = {
-                values: "mostPopular"
-            });
-        });
-        const btn = document.querySelector('#header-search input[name="search"]');
-        console.log(btn);
-        $(btn).on("keypress", function (e) {
-            if (e.which == 13) {
-                render(data = {
-                    values: "searchYT",
-                    btnVal: btn.value
-                })
-            }
+        /**
+         * Sample JavaScript code for youtube.videos.list
+         * See instructions for running APIs Explorer code samples locally:
+         * https://developers.google.com/explorer-help/guides/code_samples#javascript
+         */
 
-        });
-
-        function render(data) {
-            $.ajax({
-                type: 'POST',
-                url: 'main.php',
-                dataType: "json",
-                data: data,
-                success: function (response) {
-                    document.getElementById("mp-container").innerHTML = "";
-                    response.forEach(function (el) {
-                        if (data.values === 'mostPopular') {
-                            drawMp(el);
-                        } else {
-                            drawSQ(el);
-                        }
-                    });
-                    listen(data.values);
-                }
-            });
+        function authenticate() {
+            return gapi.auth2.getAuthInstance()
+                .signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" })
+                .then(function () { console.log("Sign-in successful"); },
+                    function (err) { console.error("Error signing in", err); });
         }
+        function loadClient() {
+            gapi.client.setApiKey("YOUR_API_KEY");
+            return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+                .then(function () { console.log("GAPI client loaded for API"); },
+                    function (err) { console.error("Error loading GAPI client for API", err); });
+        }
+        // Make sure the client is loaded and sign-in is complete before calling this method.
+        function execute() {
+            return gapi.client.youtube.videos.list({
+                "part": [
+                    "snippet,contentDetails,statistics"
+                ],
+                "chart": "mostPopular",
+                "regionCode": "US"
+            })
+                .then(function (response) {
+                    // Handle the results here (response.result has the parsed body).
+                    console.log("Response", response);
+                },
+                    function (err) { console.error("Execute error", err); });
+        }
+        gapi.load("client:auth2", function () {
+            gapi.auth2.init({ client_id: '95727436414-flp0dcl5p55ser7rp8kakdkadjkrjfli.apps.googleusercontent.com' });
+        });
     </script>
+    <button onclick="authenticate().then(loadClient)">authorize and load</button>
+    <button onclick="execute()">execute</button>
+
 </body>
 
 </html>
